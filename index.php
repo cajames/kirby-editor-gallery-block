@@ -16,7 +16,7 @@ load([
 
 Kirby::plugin('cajames/gallery-block', [
     'snippets' => [
-        'editor/gallery' => __DIR__ . '/snippets/simple.php'
+        'editor/gallery' => __DIR__ . '/snippets/gallery.php'
     ],
     'translations' => [
         'en'    => @include_once __DIR__ . '/i18n/en.php',
