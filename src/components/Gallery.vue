@@ -12,20 +12,12 @@
       <div class="k-editor-gallery-row">
         <!-- Empty Case -->
         <div v-if="images.length === 0" class="k-editor-gallery-row-empty">
-          <button
-            class="k-button"
-            @keydown.enter.native.stop
-            @click.stop.prevent="uploadFiles"
-          >
+          <button class="k-button" @keydown.enter.native.stop @click.stop.prevent="uploadFiles">
             <k-icon type="upload"></k-icon>
             <span class="k-button-text">Upload images</span>
           </button>
           <span class="separator">or</span>
-          <button
-            class="k-button"
-            @keydown.enter.native.stop
-            @click.stop.prevent="selectFiles"
-          >
+          <button class="k-button" @keydown.enter.native.stop @click.stop.prevent="selectFiles">
             <k-icon type="folder"></k-icon>
             <span class="k-button-text">Select images</span>
           </button>
@@ -49,7 +41,7 @@
             @keydown.right.self="focusImage(imageIndex + 1)"
             tabindex="0"
           >
-            <img @dragstart.prevent :src="image.src" alt="" />
+            <img @dragstart.prevent :data-src="image.src" alt />
           </div>
         </k-draggable>
       </div>
@@ -67,6 +59,7 @@
 </template>
 
 <script>
+import lozad from "lozad";
 const sortAlphaNum = (a, b) =>
   a.id.localeCompare(b.id, "en", { numeric: true });
 
@@ -76,19 +69,19 @@ export default {
   props: {
     attrs: {
       type: Object,
-      default: () => ({}),
+      default: () => ({})
     },
     endpoints: Object,
-    spellcheck: Boolean,
+    spellcheck: Boolean
   },
   data: () => ({
-    images: [],
+    images: []
   }),
   created() {
     if (!this.attrs.images) {
       this.input({
         group: "default",
-        images: [],
+        images: []
       });
     } else {
       this.images = this.attrs.images;
@@ -97,7 +90,7 @@ export default {
   watch: {
     attrs: function(val) {
       this.images = val.images;
-    },
+    }
   },
   computed: {
     style() {
@@ -110,15 +103,18 @@ export default {
         group: {
           label: this.$t("editor.blocks.gallery.settings.group.label"),
           type: "text",
-          icon: "layers",
+          icon: "layers"
         },
         imageAlt: {
           label: this.$t("editor.blocks.gallery.settings.alt.label"),
           type: "text",
-          icon: "layers",
-        },
+          icon: "layers"
+        }
       };
-    },
+    }
+  },
+  mounted() {
+    this.lazyLoadImages();
   },
   methods: {
     async focus(options = {}) {
@@ -175,13 +171,18 @@ export default {
       const width = Math.ceil((imageRatio / totalRatio) * 1000) / 10;
       return `position: relative; width: ${width}%; padding-bottom: ${ratioHeight}%;`;
     },
+    lazyLoadImages() {
+      const observer = lozad(".k-editor-block-gallery-image img");
+      observer.observe();
+    },
     input(data) {
       this.$emit("input", {
         attrs: {
           ...this.attrs,
-          ...data,
-        },
+          ...data
+        }
       });
+      this.lazyLoadImages();
     },
     async fetchFile(link) {
       const response = await this.$api.get(link);
@@ -192,13 +193,13 @@ export default {
         filename: response.filename,
         ratio: response.dimensions.ratio,
         width: response.dimensions.width,
-        height: response.dimensions.height,
+        height: response.dimensions.height
       };
     },
     onDragEnd() {
       const images = this.images;
       this.input({
-        images,
+        images
       });
     },
     addMultipleImageRows(images) {
@@ -233,22 +234,22 @@ export default {
       batches.reverse().map((batch, index) => {
         if (index === batches.length - 1) {
           this.input({
-            images: batch,
+            images: batch
           });
         } else {
           this.$emit("append", {
             type: "gallery",
             attrs: {
               group: "default",
-              images: batch,
-            },
+              images: batch
+            }
           });
         }
       });
     },
     async insertUpload(files, responses) {
       const uploads = await Promise.all(
-        responses.map((response) => this.fetchFile(response.link))
+        responses.map(response => this.fetchFile(response.link))
       );
       const images = this.images;
       const newImageList = [...images, ...uploads];
@@ -268,13 +269,13 @@ export default {
           {
             icon: "cog",
             label: this.$t("editor.blocks.image.settings"),
-            click: this.$refs.settings.open,
+            click: this.$refs.settings.open
           },
           {
             icon: "add",
             label: "Add image to this row",
-            click: this.selectFiles,
-          },
+            click: this.selectFiles
+          }
         ];
       } else {
         return [];
@@ -284,31 +285,31 @@ export default {
       this.$refs.fileUpload.drop(files, {
         url: window.panel.api + "/" + this.endpoints.field + "/upload",
         multiple: true,
-        accept: "image/*",
+        accept: "image/*"
       });
     },
     uploadFiles() {
       this.$refs.fileUpload.open({
         url: window.panel.api + "/" + this.endpoints.field + "/upload",
         multiple: true,
-        accept: "image/*",
+        accept: "image/*"
       });
     },
     replace() {
       this.$emit("input", {
-        attrs: {},
+        attrs: {}
       });
     },
     selectFiles() {
       this.$refs.fileDialog.open({
         endpoint: this.endpoints.field + "/files",
         multiple: true,
-        selected: [],
+        selected: []
       });
     },
     async insertFiles(files) {
       const objects = await Promise.all(
-        files.map((file) => this.fetchFile(file.link))
+        files.map(file => this.fetchFile(file.link))
       );
       const images = this.images;
       const newImages = [...images, ...objects];
@@ -319,18 +320,18 @@ export default {
         type: "gallery",
         attrs: {
           group: "default",
-          images: [],
-        },
+          images: []
+        }
       });
     },
     deleteImage(imageIndex) {
       const images = this.images;
       const newImages = [
         ...images.slice(0, imageIndex),
-        ...images.slice(imageIndex + 1, images.length),
+        ...images.slice(imageIndex + 1, images.length)
       ];
       this.input({
-        images: newImages,
+        images: newImages
       });
       if (newImages.length === 0) {
         this.focus({ focusRoot: true });
@@ -345,8 +346,8 @@ export default {
     saveSettings() {
       this.$refs.settings.close();
       this.input(this.attrs);
-    },
-  },
+    }
+  }
 };
 </script>
 
