@@ -18,7 +18,7 @@
                 $imageStyle = "position: relative; width: $ratioWidth%; padding-left: 2px; padding-right: 2px; padding-bottom: $ratioPercent%;";
             ?>
             <div class="k-gallery-block-image" style="<?= $imageStyle ?>">
-                <img style="display: block; position:absolute; width:100%; height:100%; padding: 1px; top:0; left:0;" srcset="<?= $image['image']->srcset([400, 800, 1200]) ?>" sizes="(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px" itemprop="thumbnail" alt="" />
+                <img style="display: block; position:absolute; width:100%; height:100%; padding: 1px; top:0; left:0;" srcset="<?= $image['image']->srcset([500, 1000, 1500]) ?>" sizes="(max-width: 640px) 500px, (max-width: 1200px) 1000px, 1500px" itemprop="thumbnail" alt="" />
             </div>
         <?php endforeach ?>
     </div>

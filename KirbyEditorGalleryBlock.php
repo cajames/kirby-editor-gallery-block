@@ -43,7 +43,12 @@ class GalleryBlock extends Block
         $newImages = [];
 
         foreach ($images as $imageData) {
-            $image = $this->image($imageData['filename']);
+            $image = null;
+            if (isset($imageData['filename'])) {
+                $image = $this->image($imageData['filename']);
+            } else {
+                $image = $this->imageGuid($imageData['guid']);
+            }
             if ($image) {
                 $imageRecord = [
                     'filename' => $image->filename(),
@@ -52,7 +57,7 @@ class GalleryBlock extends Block
                     'height' => $image->height(),
                     'width' => $image->width(),
                     'id' => $image->id(),
-                    'src' => $image->resize(1200)->url(),
+                    'src' => $image->resize(1000)->url(),
                     'image' => $image
                 ];
                 if ($toStorage === true) {

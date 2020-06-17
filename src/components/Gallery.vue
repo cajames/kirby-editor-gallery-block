@@ -116,6 +116,9 @@ export default {
   mounted() {
     this.lazyLoadImages();
   },
+  updated() {
+    this.lazyLoadImages();
+  },
   methods: {
     async focus(options = {}) {
       await this.$nextTick();

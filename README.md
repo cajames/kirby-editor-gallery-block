@@ -2,7 +2,7 @@
 
 ## Installation
 
-You can install this demo extension as a regular Kirby plugin by placing this repo as the folder `gallery-block` folder in `site/plugins`.
+You can install this demo extension as a regular Kirby plugin by placing this repo as the folder `kirby-editor-gallery-block` folder in `site/plugins`.
 
 ## Local Development
 
