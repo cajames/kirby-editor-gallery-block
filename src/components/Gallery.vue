@@ -14,12 +14,12 @@
         <div v-if="images.length === 0" class="k-editor-gallery-row-empty">
           <button class="k-button" @keydown.enter.native.stop @click.stop.prevent="uploadFiles">
             <k-icon type="upload"></k-icon>
-            <span class="k-button-text">Upload images</span>
+            <span class="k-button-text">{{$t('editor.blocks.gallery.block.uploadImages')}}</span>
           </button>
           <span class="separator">or</span>
           <button class="k-button" @keydown.enter.native.stop @click.stop.prevent="selectFiles">
             <k-icon type="folder"></k-icon>
-            <span class="k-button-text">Select images</span>
+            <span class="k-button-text">{{$t('editor.blocks.gallery.block.selectImages')}}</span>
           </button>
         </div>
 
@@ -102,11 +102,6 @@ export default {
       return {
         group: {
           label: this.$t("editor.blocks.gallery.settings.group.label"),
-          type: "text",
-          icon: "layers"
-        },
-        imageAlt: {
-          label: this.$t("editor.blocks.gallery.settings.alt.label"),
           type: "text",
           icon: "layers"
         }
@@ -258,9 +253,6 @@ export default {
       const newImageList = [...images, ...uploads];
 
       this.addMultipleImageRows(newImageList);
-      // this.input({
-      //   images: newImageList
-      // });
 
       this.$events.$emit("file.create");
       this.$events.$emit("model.update");
@@ -276,7 +268,7 @@ export default {
           },
           {
             icon: "add",
-            label: "Add image to this row",
+            label: this.$t("editor.blocks.gallery.settings.addImageToRow"),
             click: this.selectFiles
           }
         ];
