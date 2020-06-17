@@ -1,8 +1,12 @@
 # Kirby Editor - Gallery Block
 
+> A gallery module for the Kirby CMS Editor
+
+![gallery-block-demo](https://user-images.githubusercontent.com/1523286/84899104-90b7f700-b0eb-11ea-958f-867608863ef2.gif)
+
 ## Installation
 
-You can install this demo extension as a regular Kirby plugin by placing this repo as the folder `kirby-editor-gallery-block` folder in `site/plugins`.
+Install as a regular Kirby plugin by placing this repo as the folder `kirby-editor-gallery-block` in `site/plugins`.
 
 ## Local Development
 
