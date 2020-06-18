@@ -16,7 +16,7 @@
             <k-icon type="upload"></k-icon>
             <span class="k-button-text">{{$t('editor.blocks.gallery.block.uploadImages')}}</span>
           </button>
-          <span class="separator">or</span>
+          <span class="separator">{{$t('editor.blocks.gallery.block.or')}}</span>
           <button class="k-button" @keydown.enter.native.stop @click.stop.prevent="selectFiles">
             <k-icon type="folder"></k-icon>
             <span class="k-button-text">{{$t('editor.blocks.gallery.block.selectImages')}}</span>
