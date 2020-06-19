@@ -263,7 +263,7 @@ export default {
         return [
           {
             icon: "cog",
-            label: this.$t("editor.blocks.image.settings"),
+            label: this.$t("editor.blocks.gallery.settings"),
             click: this.$refs.settings.open
           },
           {
