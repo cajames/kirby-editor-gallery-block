@@ -124,6 +124,12 @@ export default {
           label: this.$t("editor.blocks.gallery.settings.rowClass.label"),
           type: "text",
           icon: "cog"
+        },
+        autoLayout: {
+          label: this.$t("editor.blocks.gallery.settings.autoLayout.label"),
+          type: "toggle",
+          icon: "layers",
+          default: true
         }
       };
     },
@@ -286,7 +292,11 @@ export default {
       const images = this.images;
       const newImageList = [...images, ...uploads];
 
-      this.addMultipleImageRows(newImageList);
+      if (this.attrs.autoLayout === false) {
+        this.images = newImageList;
+      } else {
+        this.addMultipleImageRows(newImageList);
+      }
 
       this.$events.$emit("file.create");
       this.$events.$emit("model.update");
@@ -342,7 +352,12 @@ export default {
       );
       const images = this.images;
       const newImages = [...images, ...objects];
-      this.addMultipleImageRows(newImages);
+
+      if (this.attrs.autoLayout === false) {
+        this.images = newImages;
+      } else {
+        this.addMultipleImageRows(newImages);
+      }
     },
     addImageRow() {
       this.$emit("append", {
