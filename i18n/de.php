@@ -7,6 +7,8 @@ return [
     'editor.blocks.gallery.settings.blockClass.label'  => 'Galerieblock-CSS-Klasse',
     'editor.blocks.gallery.settings.rowClass.label'    => 'Galerie Zeile CSS-Klasse',
     'editor.blocks.gallery.settings.addImageToRow'     => 'Bilder zu Zeile hinzufügen',
+    'editor.blocks.gallery.imageSettings.altText'      => 'Bild Alt Text',
+    'editor.blocks.gallery.imageSettings.imageClass'   => 'Bild-CSS-Klasse',
     'editor.blocks.gallery.block.or'                   => 'oder',
     'editor.blocks.gallery.block.addRow'               => 'Zeile hinzufügen',
     'editor.blocks.gallery.block.uploadImages'         => 'Bilder hochladen',

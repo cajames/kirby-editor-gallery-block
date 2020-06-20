@@ -39,7 +39,7 @@
                 $imageStyle = "width: $ratioWidth%; padding-bottom: $ratioPercent%;";
             ?>
             <div class="k-editor-gallery-image-wrapper" style="<?= $imageStyle ?>">
-                <img class="k-editor-gallery-image" srcset="<?= $image['image']->srcset([500, 1000, 1500]) ?>" sizes="(max-width: 640px) 500px, (max-width: 1200px) 1000px, 1500px" itemprop="thumbnail" alt="" />
+                <img class="k-editor-gallery-image <?= $image['imageClass'] ?>" srcset="<?= $image['image']->srcset([500, 1000, 1500]) ?>" sizes="(max-width: 640px) 500px, (max-width: 1200px) 1000px, 1500px" itemprop="thumbnail" alt="<?= $image['altText'] ?>" />
             </div>
         <?php endforeach ?>
     </div>
