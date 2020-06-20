@@ -9,6 +9,8 @@ This module is mostly built on top of existing Kirby UI Kit components.
 - Auto-layout for multiple images.
 - Drag and drop images to position.
 - Default render snippet which renders what's in the Editor
+- Ability to add custom CSS classes to each block, row and image from the Editor.
+- Ability to add Alt text to each image.
 
 ![gallery-block-demo](https://user-images.githubusercontent.com/1523286/84902687-7896a680-b0f0-11ea-871d-75a64442f0f7.gif)
 
