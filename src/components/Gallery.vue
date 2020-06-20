@@ -88,9 +88,11 @@ export default {
   created() {
     if (!this.attrs.images) {
       this.input({
+        ...this.attrs,
         group: "default",
         blockClass: "",
         rowClass: "",
+        autoLayout: true,
         images: []
       });
     } else {
@@ -293,7 +295,9 @@ export default {
       const newImageList = [...images, ...uploads];
 
       if (this.attrs.autoLayout === false) {
-        this.images = newImageList;
+        this.input({
+          images: newImageList
+        });
       } else {
         this.addMultipleImageRows(newImageList);
       }
@@ -354,7 +358,9 @@ export default {
       const newImages = [...images, ...objects];
 
       if (this.attrs.autoLayout === false) {
-        this.images = newImages;
+        this.input({
+          images: newImages
+        });
       } else {
         this.addMultipleImageRows(newImages);
       }
