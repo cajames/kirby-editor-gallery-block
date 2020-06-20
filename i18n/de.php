@@ -6,6 +6,7 @@ return [
     'editor.blocks.gallery.settings.group.label'       => 'Galerie Ziehen Sie Gruppennamen',
     'editor.blocks.gallery.settings.blockClass.label'  => 'Galerieblock-CSS-Klasse',
     'editor.blocks.gallery.settings.rowClass.label'    => 'Galerie Zeile CSS-Klasse',
+    'editor.blocks.gallery.settings.autoLayout.label'  => 'Bilder automatisch anordnen',
     'editor.blocks.gallery.settings.addImageToRow'     => 'Bilder zu Zeile hinzufügen',
     'editor.blocks.gallery.imageSettings.altText'      => 'Bild Alt Text',
     'editor.blocks.gallery.imageSettings.imageClass'   => 'Bild-CSS-Klasse',
