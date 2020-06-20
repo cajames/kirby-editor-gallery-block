@@ -81,6 +81,8 @@ export default {
     if (!this.attrs.images) {
       this.input({
         group: "default",
+        blockClass: "",
+        rowClass: "",
         images: []
       });
     } else {
@@ -104,6 +106,16 @@ export default {
           label: this.$t("editor.blocks.gallery.settings.group.label"),
           type: "text",
           icon: "layers"
+        },
+        blockClass: {
+          label: this.$t("editor.blocks.gallery.settings.blockClass.label"),
+          type: "text",
+          icon: "cog"
+        },
+        rowClass: {
+          label: this.$t("editor.blocks.gallery.settings.rowClass.label"),
+          type: "text",
+          icon: "cog"
         }
       };
     }

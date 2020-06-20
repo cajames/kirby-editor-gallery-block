@@ -20,11 +20,11 @@
             padding: 1px;
         }
     </style>
-    <div class="k-editor-gallery-block" itemscope itemtype="http://schema.org/ImageGallery">
+    <div class="k-editor-gallery-block <?= $attrs->blockClass() ?>" itemscope itemtype="http://schema.org/ImageGallery">
 <?php endif ?>
 
 <?php if (!empty($images)) : ?>
-    <div class="k-editor-gallery-block-row">
+    <div class="k-editor-gallery-block-row <?= $attrs->rowClass() ?>">
         <?php
             $rowRatio = 0;
             foreach($images as $image) {
