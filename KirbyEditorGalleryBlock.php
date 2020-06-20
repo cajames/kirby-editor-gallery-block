@@ -30,11 +30,6 @@ class GalleryBlock extends Block
         return count($images) > 0;
     }
 
-    // TODO:
-    // public function markdown(): string
-    // {
-    // }
-
     public function toArray(bool $toStorage = false): array
     {
         $data = parent::toArray();
@@ -44,6 +39,9 @@ class GalleryBlock extends Block
 
         foreach ($images as $imageData) {
             $image = null;
+            $altText = isset($imageData['altText']) ? $imageData['altText'] : '';
+            $imageClass = isset($imageData['imageClass']) ? $imageData['imageClass'] : '';
+
             if (isset($imageData['filename'])) {
                 $image = $this->image($imageData['filename']);
             } else {
@@ -58,7 +56,9 @@ class GalleryBlock extends Block
                     'width' => $image->width(),
                     'id' => $image->id(),
                     'src' => $image->resize(1000)->url(),
-                    'image' => $image
+                    'image' => $image,
+                    'altText' => $altText,
+                    'imageClass' => $imageClass,
                 ];
                 if ($toStorage === true) {
                     unset($imageRecord['ratio']);

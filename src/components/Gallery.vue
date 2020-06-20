@@ -41,6 +41,9 @@
             @keydown.right.self="focusImage(imageIndex + 1)"
             tabindex="0"
           >
+            <button class="k-button" @click.prevent.stop="openImageSetting(image)">
+              <k-icon type="cog"></k-icon>
+            </button>
             <img @dragstart.prevent :data-src="image.src" alt />
           </div>
         </k-draggable>
@@ -54,6 +57,10 @@
     <!-- Settings Dialog -->
     <k-dialog ref="settings" @submit="saveSettings" size="medium">
       <k-form :fields="fields" v-model="attrs" @submit="saveSettings" />
+    </k-dialog>
+    <!-- Image Settings Dialog -->
+    <k-dialog ref="imageSettings" @submit="saveImageSettings" size="medium">
+      <k-form :fields="imageFields" v-model="imageSettingsImage" @submit="saveImageSettings" />
     </k-dialog>
   </div>
 </template>
@@ -75,12 +82,15 @@ export default {
     spellcheck: Boolean
   },
   data: () => ({
-    images: []
+    images: [],
+    imageSettingsImage: null
   }),
   created() {
     if (!this.attrs.images) {
       this.input({
         group: "default",
+        blockClass: "",
+        rowClass: "",
         images: []
       });
     } else {
@@ -104,6 +114,30 @@ export default {
           label: this.$t("editor.blocks.gallery.settings.group.label"),
           type: "text",
           icon: "layers"
+        },
+        blockClass: {
+          label: this.$t("editor.blocks.gallery.settings.blockClass.label"),
+          type: "text",
+          icon: "cog"
+        },
+        rowClass: {
+          label: this.$t("editor.blocks.gallery.settings.rowClass.label"),
+          type: "text",
+          icon: "cog"
+        }
+      };
+    },
+    imageFields() {
+      return {
+        altText: {
+          label: this.$t("editor.blocks.gallery.imageSettings.altText"),
+          type: "text",
+          icon: "text"
+        },
+        imageClass: {
+          label: this.$t("editor.blocks.gallery.imageSettings.imageClass"),
+          type: "text",
+          icon: "cog"
         }
       };
     }
@@ -263,7 +297,7 @@ export default {
         return [
           {
             icon: "cog",
-            label: this.$t("editor.blocks.image.settings"),
+            label: this.$t("editor.blocks.gallery.settings"),
             click: this.$refs.settings.open
           },
           {
@@ -341,6 +375,18 @@ export default {
     saveSettings() {
       this.$refs.settings.close();
       this.input(this.attrs);
+    },
+    openImageSetting(image) {
+      this.imageSettingsImage = image;
+      this.$refs.imageSettings.open();
+    },
+    clearImageSettingImage() {
+      this.imageSettingsImage = null;
+    },
+    saveImageSettings() {
+      this.clearImageSettingImage();
+      this.$refs.imageSettings.close();
+      this.input(this.attrs);
     }
   }
 };
@@ -406,6 +452,21 @@ export default {
 
       .k-editor-row-image {
         position: relative;
+
+        button {
+          position: absolute;
+          display: none;
+          top: 10px;
+          right: 10px;
+          border-radius: 2px;
+          padding: 2px;
+          background: $color-background;
+          z-index: 10;
+        }
+
+        &:hover button {
+          display: block;
+        }
 
         img {
           display: block;

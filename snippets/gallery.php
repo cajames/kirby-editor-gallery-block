@@ -20,11 +20,11 @@
             padding: 1px;
         }
     </style>
-    <div class="k-editor-gallery-block" itemscope itemtype="http://schema.org/ImageGallery">
+    <div class="k-editor-gallery-block <?= $attrs->blockClass() ?>" itemscope itemtype="http://schema.org/ImageGallery">
 <?php endif ?>
 
 <?php if (!empty($images)) : ?>
-    <div class="k-editor-gallery-block-row">
+    <div class="k-editor-gallery-block-row <?= $attrs->rowClass() ?>">
         <?php
             $rowRatio = 0;
             foreach($images as $image) {
@@ -39,7 +39,7 @@
                 $imageStyle = "width: $ratioWidth%; padding-bottom: $ratioPercent%;";
             ?>
             <div class="k-editor-gallery-image-wrapper" style="<?= $imageStyle ?>">
-                <img class="k-editor-gallery-image" srcset="<?= $image['image']->srcset([500, 1000, 1500]) ?>" sizes="(max-width: 640px) 500px, (max-width: 1200px) 1000px, 1500px" itemprop="thumbnail" alt="" />
+                <img class="k-editor-gallery-image <?= $image['imageClass'] ?>" srcset="<?= $image['image']->srcset([500, 1000, 1500]) ?>" sizes="(max-width: 640px) 500px, (max-width: 1200px) 1000px, 1500px" itemprop="thumbnail" alt="<?= $image['altText'] ?>" />
             </div>
         <?php endforeach ?>
     </div>
