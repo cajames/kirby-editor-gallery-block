@@ -44,7 +44,13 @@
             <button class="k-button" @click.prevent.stop="openImageSetting(image)">
               <k-icon type="cog"></k-icon>
             </button>
-            <img @dragstart.prevent :data-src="image.src" alt />
+            <img
+              @dragstart.prevent
+              v-once
+              :src="'/media/plugins/cajames/gallery-block/loader.png'"
+              :data-src="image.src"
+              alt
+            />
           </div>
         </k-draggable>
       </div>
