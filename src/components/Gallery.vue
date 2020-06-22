@@ -47,6 +47,7 @@
             <img
               @dragstart.prevent
               v-once
+              @error="imageLoadError($event)"
               :src="'/media/plugins/cajames/gallery-block/loader.png'"
               :data-src="image.src"
               alt
@@ -220,6 +221,24 @@ export default {
     lazyLoadImages() {
       const observer = lozad(".k-editor-block-gallery-image img");
       observer.observe();
+    },
+    imageLoadError(event) {
+      // Sometimes the service might not render the thumb in time
+      // and returns a 500 error for getting the image
+      // especially when a lot of images were uploaded, so retry fetching after a while
+      const img = event.currentTarget;
+      if (!img) {
+        return;
+      }
+      const src = img.getAttribute("src");
+      const retries = parseInt(img.getAttribute("retries")) || 0;
+
+      if (retries < 5) {
+        setTimeout(() => {
+          img.setAttribute("src", src);
+          img.setAttribute("retries", retries + 1);
+        }, 200);
+      }
     },
     input(data) {
       this.$emit("input", {
