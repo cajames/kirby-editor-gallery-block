@@ -332,22 +332,24 @@ export default {
       this.$store.dispatch("notification/success", ":)");
     },
     menu() {
-      if (this.images) {
-        return [
-          {
-            icon: "cog",
-            label: this.$t("editor.blocks.gallery.settings"),
-            click: this.$refs.settings.open
-          },
-          {
-            icon: "add",
-            label: this.$t("editor.blocks.gallery.settings.addImageToRow"),
-            click: this.selectFiles
-          }
-        ];
-      } else {
+      // If no images array, or settings ref has not rendered,
+      // don't return menu items
+      if (!this.images || !this.$refs.settings) {
         return [];
       }
+
+      return [
+        {
+          icon: "cog",
+          label: this.$t("editor.blocks.gallery.settings"),
+          click: this.$refs.settings.open
+        },
+        {
+          icon: "add",
+          label: this.$t("editor.blocks.gallery.settings.addImageToRow"),
+          click: this.selectFiles
+        }
+      ];
     },
     onDrop(files) {
       this.$refs.fileUpload.drop(files, {
