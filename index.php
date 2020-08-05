@@ -21,5 +21,6 @@ Kirby::plugin('cajames/gallery-block', [
     'translations' => [
         'en'    => @include_once __DIR__ . '/i18n/en.php',
         'de'    => @include_once __DIR__ . '/i18n/de.php',
+        'nl'    => @include_once __DIR__ . '/i18n/nl.php',
     ]
 ]);
