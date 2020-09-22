@@ -36,6 +36,10 @@
                 $ratio = ($image['width']) / ($image['height']);
                 $ratioPercent = (($image['height']) / ($image['width'])) * ($ratio / $rowRatio) * 100;
                 $ratioWidth = ($ratio / $rowRatio) * 100;
+
+                $ratioPercent = str_replace(',','.',$ratioPercent);
+                $ratioWidth = str_replace(',','.',$ratioWidth);
+
                 $imageStyle = "width: $ratioWidth%; padding-bottom: $ratioPercent%;";
             ?>
             <div class="k-editor-gallery-image-wrapper" style="<?= $imageStyle ?>">
